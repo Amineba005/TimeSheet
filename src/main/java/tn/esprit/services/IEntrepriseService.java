@@ -2,8 +2,8 @@ package tn.esprit.services;
 
 import java.util.List;
 
-import tn.esprit.spring.entities.Departement;
-import tn.esprit.spring.entities.Entreprise;
+import tn.esprit.entities.Departement;
+import tn.esprit.entities.Entreprise;
 
 public interface IEntrepriseService {
 	
