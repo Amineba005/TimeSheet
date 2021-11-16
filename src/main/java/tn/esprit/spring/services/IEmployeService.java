@@ -1,13 +1,13 @@
-package tn.esprit.services;
+package tn.esprit.spring.services;
 
 import java.util.Date;
 import java.util.List;
 
-import tn.esprit.entities.Contrat;
-import tn.esprit.entities.Employe;
-import tn.esprit.entities.Entreprise;
-import tn.esprit.entities.Mission;
-import tn.esprit.entities.Timesheet;
+import tn.esprit.spring.entities.Contrat;
+import tn.esprit.spring.entities.Employe;
+import tn.esprit.spring.entities.Entreprise;
+import tn.esprit.spring.entities.Mission;
+import tn.esprit.spring.entities.Timesheet;
 
 
 public interface IEmployeService {

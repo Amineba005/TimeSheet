@@ -1,4 +1,4 @@
-package tn.esprit.controller;
+package tn.esprit.spring.controller;
 
 import java.util.List;
 
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import tn.esprit.entities.Departement;
-import tn.esprit.entities.Entreprise;
-import tn.esprit.services.IEmployeService;
-import tn.esprit.services.IEntrepriseService;
-import tn.esprit.services.ITimesheetService;
+import tn.esprit.spring.entities.Departement;
+import tn.esprit.spring.entities.Entreprise;
+import tn.esprit.spring.services.IEmployeService;
+import tn.esprit.spring.services.IEntrepriseService;
+import tn.esprit.spring.services.ITimesheetService;
 
 @RestController
 public class RestControlEntreprise {
