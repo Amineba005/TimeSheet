@@ -4,9 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-
 import org.apache.log4j.Logger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -74,19 +72,6 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		boolean result = false;
 		try {
 			l.info("In ajouterTimesheet : missionId[" + missionId + "] / employeId[" + employeId + "] / dateDebut[" + dateDebut + "] / dateFin[" + employeId + "]");
-		missionRepository.save(mission);
-		return mission.getId();
-	}
-    
-	public void affecterMissionADepartement(int missionId, int depId) {
-		Mission mission = missionRepository.findById(missionId).get();
-		Departement dep = deptRepoistory.findById(depId).get();
-		mission.setDepartement(dep);
-		missionRepository.save(mission);
-		
-	}
-
-	public void ajouterTimesheet(int missionId, int employeId, Date dateDebut, Date dateFin) {
 		TimesheetPK timesheetPK = new TimesheetPK();
 		timesheetPK.setDateDebut(dateDebut);
 		timesheetPK.setDateFin(dateFin);
@@ -103,12 +88,10 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		}
 		l.info("Out ajouterTimesheet : " + result);
 		return result;
-		
 	}
 
 	
 	public void validerTimesheet(int missionId, int employeId, Date dateDebut, Date dateFin, int validateurId) {
-		l.info("In validerTimesheet");
 		System.out.println("In valider Timesheet");
 		Employe validateur = employeRepository.findById(validateurId).get();
 		Mission mission = missionRepository.findById(missionId).get();
@@ -126,7 +109,6 @@ public class TimesheetServiceImpl implements ITimesheetService {
 			}
 		}
 		if(!chefDeLaMission){
-			l.info("l'employe doit etre chef de departement de la mission en question");
 			System.out.println("l'employe doit etre chef de departement de la mission en question");
 			return;
 		}
@@ -137,7 +119,6 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		
 		//Comment Lire une date de la base de données
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		l.info("dateDebut : " + dateFormat.format(timesheet.getTimesheetPK().getDateDebut()));
 		System.out.println("dateDebut : " + dateFormat.format(timesheet.getTimesheetPK().getDateDebut()));
 		
 	}
@@ -152,12 +133,12 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		for (Mission mission : timesheetRepository.findAllMissionByEmployeJPQL(employeId) ){
 			l.info("Out getAllDepartementsNamesByEntreprise : " + mission + "\n");
 		}
+		
 		return timesheetRepository.findAllMissionByEmployeJPQL(employeId);
 	}
 
 	
 	public List<Employe> getAllEmployeByMission(int missionId) {
-
 		try {
 			l.info("In getAllEmployeByMission : missionId[" + missionId + "]");
 		} catch (Exception e) {
@@ -170,9 +151,3 @@ public class TimesheetServiceImpl implements ITimesheetService {
 	}
 
 }
-
-		return timesheetRepository.getAllEmployeByMission(missionId);
-	}
-
-}
-
