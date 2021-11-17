@@ -53,9 +53,9 @@ public class EmployeServiceImplTest {
 	@Before
 	public void setUp() throws ParseException {
 		this.employe = new Employe();
-		this.employe.setPrenom("Selim");
-		this.employe.setNom("CHIKH ZAOUALI");
-		this.employe.setEmail("selim.chikhzaouali@esprit.tn");
+		this.employe.setPrenom("nada");
+		this.employe.setNom("nada abidi");
+		this.employe.setEmail("nada.abidi@esprit.tn");
 		this.employe.setActif(true);
 		this.employe.setRole(Role.INGENIEUR);
 		
@@ -189,7 +189,7 @@ public class EmployeServiceImplTest {
 	public void testMettreAjourEmailByEmployeId() {
 		try
 		{	
-		String email = "bohmid.ahmed@spring.tn";
+		String email = "nada.abidi@spring.tn";
 		int id = employeS.ajouterEmploye(
 				new Employe("Test1", "test1", "test1.test1@esprit.tn", true, Role.INGENIEUR));
 	
@@ -217,7 +217,7 @@ public class EmployeServiceImplTest {
 		try
 		{	
 			int id = employeS.ajouterEmploye(
-					new Employe("Ahmed", "Mrabet", "Ahmed.mrabet@esprit.tn", true, Role.INGENIEUR));
+					new Employe("nada", "abidi", "nada.abidi@esprit.tn", true, Role.INGENIEUR));
 		
 		employeS.deleteEmployeById(id);
 		
