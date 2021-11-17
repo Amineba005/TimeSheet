@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
-import org.hamcrest.Matchers;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,15 +20,12 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import tn.esprit.spring.entities.Departement;
 import tn.esprit.spring.entities.Employe;
-import tn.esprit.spring.entities.Entreprise;
 import tn.esprit.spring.entities.Mission;
 import tn.esprit.spring.entities.Timesheet;
 import tn.esprit.spring.entities.TimesheetPK;
 import tn.esprit.spring.repository.DepartementRepository;
-import tn.esprit.spring.repository.EntrepriseRepository;
 import tn.esprit.spring.repository.MissionRepository;
 import tn.esprit.spring.repository.TimesheetRepository;
-import tn.esprit.spring.services.EntrepriseServiceImpl;
 import tn.esprit.spring.services.TimesheetServiceImpl;
 
 
