@@ -4854,3 +4854,45 @@ Consider defining a bean of type 'tn.esprit.spring.entities.Employe' in your con
 2021-11-15 16:09:50.221  INFO 11748 --- [Thread-2] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2021-11-15 16:09:50.224  INFO 11748 --- [Thread-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2021-11-15 16:09:50.233  INFO 11748 --- [Thread-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-11-15 16:35:43.017  INFO 18328 --- [main] tn.esprit.spring.EmployeServiceImplTest  : Starting EmployeServiceImplTest on DESKTOP-H8DF3RR with PID 18328 (started by COMPUTER in C:\Users\COMPUTER\Desktop\TimeSheet)
+2021-11-15 16:35:43.039  INFO 18328 --- [main] tn.esprit.spring.EmployeServiceImplTest  : No active profile set, falling back to default profiles: default
+2021-11-15 16:35:43.960  INFO 18328 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2021-11-15 16:35:44.059  INFO 18328 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 87ms. Found 6 repository interfaces.
+2021-11-15 16:35:44.543  INFO 18328 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$ce6f702a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-11-15 16:35:44.811  INFO 18328 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-11-15 16:35:45.084  INFO 18328 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-11-15 16:35:45.176  INFO 18328 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2021-11-15 16:35:45.290  INFO 18328 --- [main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.9.Final}
+2021-11-15 16:35:45.295  INFO 18328 --- [main] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2021-11-15 16:35:45.508  INFO 18328 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2021-11-15 16:35:46.177  INFO 18328 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2021-11-15 16:35:50.254  INFO 18328 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-11-15 16:35:51.395  INFO 18328 --- [main] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2021-11-15 16:35:55.063  INFO 18328 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-11-15 16:35:55.485  WARN 18328 --- [main] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-11-15 16:35:56.103  INFO 18328 --- [main] tn.esprit.spring.EmployeServiceImplTest  : Started EmployeServiceImplTest in 13.459 seconds (JVM running for 14.868)
+2021-11-15 16:35:57.104  INFO 18328 --- [main] t.e.spring.services.EmployeServiceImpl   : le service ajouterContrat a commencé
+2021-11-15 16:35:57.189  INFO 18328 --- [main] t.e.spring.services.EmployeServiceImpl   : contrat ajouté sans errors : 
+2021-11-15 16:35:57.446  INFO 18328 --- [main] t.e.spring.services.EmployeServiceImpl   : suppression d'un contrat : 
+2021-11-15 16:35:57.504  INFO 18328 --- [main] t.e.spring.services.EmployeServiceImpl   : suppression without errors : 
+2021-11-15 16:35:57.737  INFO 18328 --- [main] tn.esprit.spring.EmployeServiceImplTest  : Employe deleted successfully!
+2021-11-15 16:35:57.752  INFO 18328 --- [main] tn.esprit.spring.EmployeServiceImplTest  : Employe added successfully!
+2021-11-15 16:35:57.752  INFO 18328 --- [main] tn.esprit.spring.EmployeServiceImplTest  : verifier la liste des employes
+2021-11-15 16:35:57.877  INFO 18328 --- [main] tn.esprit.spring.EmployeServiceImplTest  : la liste des employer n'est pas null
+2021-11-15 16:35:57.896  INFO 18328 --- [main] t.e.spring.services.EmployeServiceImpl   : le service ajouterContrat a commencé
+2021-11-15 16:35:57.899  INFO 18328 --- [main] t.e.spring.services.EmployeServiceImpl   : contrat ajouté sans errors : 
+2021-11-15 16:35:57.899  INFO 18328 --- [main] t.e.spring.services.EmployeServiceImpl   : suppression d'un contrat : 
+2021-11-15 16:35:57.912  INFO 18328 --- [main] t.e.spring.services.EmployeServiceImpl   : suppression without errors : 
+2021-11-15 16:35:57.938  INFO 18328 --- [main] tn.esprit.spring.EmployeServiceImplTest  : Prenom de lemploye est : mrabett
+2021-11-15 16:35:58.010  INFO 18328 --- [main] t.e.spring.services.EmployeServiceImpl   : le service ajouterContrat a commencé
+2021-11-15 16:35:58.013  INFO 18328 --- [main] t.e.spring.services.EmployeServiceImpl   : contrat ajouté sans errors : 
+2021-11-15 16:35:58.014  INFO 18328 --- [main] t.e.spring.services.EmployeServiceImpl   : Affectation du contrat a employe : 
+2021-11-15 16:35:58.030  INFO 18328 --- [main] t.e.spring.services.EmployeServiceImpl   : Contrat affecté à employe sans errors : 
+2021-11-15 16:35:58.038  INFO 18328 --- [main] t.e.spring.services.EmployeServiceImpl   : suppression d'un contrat : 
+2021-11-15 16:35:58.049  INFO 18328 --- [main] t.e.spring.services.EmployeServiceImpl   : suppression without errors : 
+2021-11-15 16:35:59.540  INFO 18328 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-11-15 16:35:59.543  INFO 18328 --- [Thread-2] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-11-15 16:35:59.546  INFO 18328 --- [Thread-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-11-15 16:35:59.582  INFO 18328 --- [Thread-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
