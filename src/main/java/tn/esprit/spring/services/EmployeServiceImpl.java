@@ -3,7 +3,10 @@ package tn.esprit.spring.services;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +25,9 @@ import tn.esprit.spring.repository.TimesheetRepository;
 @Service
 public class EmployeServiceImpl implements IEmployeService {
 
+	private static final Logger LOG = LogManager.getLogger(EmployeServiceImpl.class);
+
+	//test
 	@Autowired
 	EmployeRepository employeRepository;
 	@Autowired
@@ -37,34 +43,55 @@ public class EmployeServiceImpl implements IEmployeService {
 	}
 
 	public void mettreAjourEmailByEmployeId(String email, int employeId) {
-		Employe employe = employeRepository.findById(employeId).get();
-		employe.setEmail(email);
-		employeRepository.save(employe);
+		LOG.info("le service mettreAjourEmailByEmployeId a commencé");
+		Optional<Employe> employe = employeRepository.findById(employeId);
+		Employe emp=null;
+		if (employe.isPresent()) {
+			emp = employe.get();
+		}
+		if ((emp!=null)) {
+			emp.setEmail(email);
+			employeRepository.save(emp);
+		}
+		
 
 	}
 
+		
 	@Transactional	
 	public void affecterEmployeADepartement(int employeId, int depId) {
-		Departement depManagedEntity = deptRepoistory.findById(depId).get();
-		Employe employeManagedEntity = employeRepository.findById(employeId).get();
+		LOG.info("le service affecterEmpolyeADepartment a commencé");
+		Optional<Departement> depManagedEntity = deptRepoistory.findById(depId);
 
-		if(depManagedEntity.getEmployes() == null){
+		Optional<Employe> employeManagedEntity = employeRepository.findById(employeId);
+		if (depManagedEntity.isPresent() && employeManagedEntity.isPresent())
+		{
+			Departement departement = depManagedEntity.get();
+			
+			Employe employe = employeManagedEntity.get();
+			
+			if((departement.getEmployes() == null)){
 
-			List<Employe> employes = new ArrayList<>();
-			employes.add(employeManagedEntity);
-			depManagedEntity.setEmployes(employes);
-		}else{
+				List<Employe> employes = new ArrayList<>();
+				employes.add(employe);
+				departement.setEmployes(employes);
+			}else{
 
-			depManagedEntity.getEmployes().add(employeManagedEntity);
-
+				departement.getEmployes().add(employe);
+			}
 		}
-
-	}
+		
+		}
 	@Transactional
 	public void desaffecterEmployeDuDepartement(int employeId, int depId)
 	{
-		Departement dep = deptRepoistory.findById(depId).get();
-
+		LOG.info("le service DesaffecterEmployeDuDepartement a commencé");
+		Optional<Departement> depManagedEntity = deptRepoistory.findById(depId);
+		Departement dep=null;
+		if (depManagedEntity.isPresent()) {
+			dep = depManagedEntity.get();
+		
+		
 		int employeNb = dep.getEmployes().size();
 		for(int index = 0; index < employeNb; index++){
 			if(dep.getEmployes().get(index).getId() == employeId){
@@ -72,82 +99,182 @@ public class EmployeServiceImpl implements IEmployeService {
 				break;//a revoir
 			}
 		}
+		}
 	}
 
 	public int ajouterContrat(Contrat contrat) {
-		contratRepoistory.save(contrat);
+
+		try{
+			LOG.info("le service ajouterContrat a commencé");
+			LOG.debug("je VAIS ajouter un contrat : ");
+			
+			contratRepoistory.save(contrat);
+			
+			LOG.debug("je viens  de finir l'ajout d'un contrat : ");
+			LOG.info("contrat ajouté sans errors : ");
+
+		}catch (Exception e) {
+			LOG.error(String.format("Erreur dans l'ajout du contrat : %s ",e));
+		}
 		return contrat.getReference();
 	}
 
 	public void affecterContratAEmploye(int contratId, int employeId) {
-		Contrat contratManagedEntity = contratRepoistory.findById(contratId).get();
-		Employe employeManagedEntity = employeRepository.findById(employeId).get();
+		try
+		{
+			LOG.info("Affectation du contrat a employe : ");
+			LOG.debug("Selection du contrat : ");
+			Optional<Contrat> contratManagedEntity = contratRepoistory.findById(contratId);
+			Contrat con=null;
+			if (contratManagedEntity.isPresent()) {
+				con=contratManagedEntity.get();
+			}
+			LOG.debug("Contrat selectionné : ");
+			LOG.debug("Selection de l'employe");
+			Optional<Employe> employeManagedEntity = employeRepository.findById(employeId);
+			Employe emp=null;
+			if (employeManagedEntity.isPresent()) {
+				emp=employeManagedEntity.get();
+			}
+			LOG.debug("Employé selectionné : ");
 
-		contratManagedEntity.setEmploye(employeManagedEntity);
-		contratRepoistory.save(contratManagedEntity);
+			LOG.debug("Affecter contrat a employe : ");
+			
+			if ((emp!=null)&&(con!=null)) {
+				con.setEmploye(emp);
+				contratRepoistory.save(con);
+			}
+			
+			LOG.info("Contrat affecté à employe sans errors : ");
+
+		}catch (Exception e) {
+			LOG.error(String.format("Erreur dans l'affectation du contrat : %s ",e));
+		}
+		
 		
 	}
-
+//Test pipeline with git
 	public String getEmployePrenomById(int employeId) {
-		Employe employeManagedEntity = employeRepository.findById(employeId).get();
-		return employeManagedEntity.getPrenom();
+		LOG.info("le service getEmployePrenomById a commencé");
+		Optional<Employe> employeManagedEntity = employeRepository.findById(employeId);
+		Employe emp=null;
+		if (employeManagedEntity.isPresent()) {
+			emp=employeManagedEntity.get();
+		}
+		
+		String prenom="";
+		if (emp!=null) {
+			prenom=emp.getPrenom();
+		}
+		
+		return prenom;
 	}
+	
 	public void deleteEmployeById(int employeId)
 	{
-		Employe employe = employeRepository.findById(employeId).get();
-
+		LOG.info("le service deleteEmployeById a commencé");
+		Optional<Employe> employe = employeRepository.findById(employeId);
+		Employe emp=null;
+		if (employe.isPresent()) 
+			emp=employe.get();
+		
 		//Desaffecter l'employe de tous les departements
 		//c'est le bout master qui permet de mettre a jour
 		//la table d'association
-		for(Departement dep : employe.getDepartements()){
-			dep.getEmployes().remove(employe);
+		if (emp != null){
+		for(Departement dep : emp.getDepartements()){
+			dep.getEmployes().remove(emp);
 		}
-
-		employeRepository.delete(employe);
+		}
+		if (emp != null){
+		employeRepository.delete(emp);
+		}
 	}
-
 	public void deleteContratById(int contratId) {
-		Contrat contratManagedEntity = contratRepoistory.findById(contratId).get();
-		contratRepoistory.delete(contratManagedEntity);
+		try{
+			
+			LOG.info("suppression d'un contrat : ");
+			LOG.debug("selection du contrat a supprimé : ");
+			
+			Optional<Contrat> contratManagedEntity = contratRepoistory.findById(contratId);
+			Contrat con=null;
+			if (contratManagedEntity.isPresent()) {
+				con=contratManagedEntity.get();
+			}
+			
+			LOG.debug("suppression du contrat : ");
+			if (con!=null) {
+				contratRepoistory.delete(con);
+			}
+			LOG.debug("je viens de supprimer un contrat : ");
+			
+			LOG.info("suppression without errors : " );
+		}catch(Exception e){
+			LOG.error(String.format("Erreur dans l'affectation du contrat: %s ",e));
+		}
 
 	}
 
 	public int getNombreEmployeJPQL() {
+		LOG.info("le service getNombreEmployeJPQL a commencé");
 		return employeRepository.countemp();
 	}
 	
 	public List<String> getAllEmployeNamesJPQL() {
+		LOG.info("le service getAllEmployeNamesJPQL a commencé");
 		return employeRepository.employeNames();
 
 	}
 	
 	public List<Employe> getAllEmployeByEntreprise(Entreprise entreprise) {
+		LOG.info("le service getAllEmployeByEntreprise a commencé");
 		return employeRepository.getAllEmployeByEntreprisec(entreprise);
 	}
 
 	public void mettreAjourEmailByEmployeIdJPQL(String email, int employeId) {
+		LOG.info("le service mettreAjourEmailByEmployeIdJPQL a commencé");
 		employeRepository.mettreAjourEmailByEmployeIdJPQL(email, employeId);
 
 	}
 	public void deleteAllContratJPQL() {
-         employeRepository.deleteAllContratJPQL();
+		try{
+			LOG.info("Suppression de tout les contrats : ");
+			
+			LOG.debug("Je vais supprimer tous les contrats : ");
+	        employeRepository.deleteAllContratJPQL();
+			LOG.debug("Je viens de supprimer tous les contrats : ");
+
+			LOG.info("Contrats supprimes without errors : ");
+
+		}catch (Exception e) {
+			LOG.error(String.format("Erreur dans la suppression de tous les contrats : %s ",e));
+		}
 	}
 	
 	public float getSalaireByEmployeIdJPQL(int employeId) {
+		LOG.info("le service getSalaireByEmployeIdJPQL a commencé");
 		return employeRepository.getSalaireByEmployeIdJPQL(employeId);
 	}
 
 	public Double getSalaireMoyenByDepartementId(int departementId) {
+		LOG.info("le service getSalaireMoyenByDepartementId a commencé");
 		return employeRepository.getSalaireMoyenByDepartementId(departementId);
 	}
 	
 	public List<Timesheet> getTimesheetsByMissionAndDate(Employe employe, Mission mission, Date dateDebut,
 			Date dateFin) {
+		LOG.info("le service getTimesheetsByMissionAndDate a commencé");
 		return timesheetRepository.getTimesheetsByMissionAndDate(employe, mission, dateDebut, dateFin);
 	}
 
 	public List<Employe> getAllEmployes() {
+		LOG.info("le service getAllEmployes a commencé");
 				return (List<Employe>) employeRepository.findAll();
+	}
+	public Employe getEmployerById(int id)
+	{
+		LOG.info("le service getEmployerById a commencé");
+		return employeRepository.findById(id).orElse(null);
 	}
 
 }
