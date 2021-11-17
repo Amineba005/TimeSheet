@@ -43,6 +43,7 @@ public class EmployeServiceImpl implements IEmployeService {
 	}
 
 	public void mettreAjourEmailByEmployeId(String email, int employeId) {
+		LOG.info("le service mettreAjourEmailByEmployeId a commencé");
 		Optional<Employe> employe = employeRepository.findById(employeId);
 		Employe emp=null;
 		if (employe.isPresent()) {
@@ -59,6 +60,7 @@ public class EmployeServiceImpl implements IEmployeService {
 		
 	@Transactional	
 	public void affecterEmployeADepartement(int employeId, int depId) {
+		LOG.info("le service affecterEmpolyeADepartment a commencé");
 		Optional<Departement> depManagedEntity = deptRepoistory.findById(depId);
 
 		Optional<Employe> employeManagedEntity = employeRepository.findById(employeId);
@@ -83,6 +85,7 @@ public class EmployeServiceImpl implements IEmployeService {
 	@Transactional
 	public void desaffecterEmployeDuDepartement(int employeId, int depId)
 	{
+		LOG.info("le service DesaffecterEmployeDuDepartement a commencé");
 		Optional<Departement> depManagedEntity = deptRepoistory.findById(depId);
 		Departement dep=null;
 		if (depManagedEntity.isPresent()) {
@@ -152,6 +155,7 @@ public class EmployeServiceImpl implements IEmployeService {
 	}
 //Test pipeline with git
 	public String getEmployePrenomById(int employeId) {
+		LOG.info("le service getEmployePrenomById a commencé");
 		Optional<Employe> employeManagedEntity = employeRepository.findById(employeId);
 		Employe emp=null;
 		if (employeManagedEntity.isPresent()) {
@@ -168,7 +172,7 @@ public class EmployeServiceImpl implements IEmployeService {
 	
 	public void deleteEmployeById(int employeId)
 	{
-		
+		LOG.info("le service deleteEmployeById a commencé");
 		Optional<Employe> employe = employeRepository.findById(employeId);
 		Employe emp=null;
 		if (employe.isPresent()) 
@@ -212,19 +216,23 @@ public class EmployeServiceImpl implements IEmployeService {
 	}
 
 	public int getNombreEmployeJPQL() {
+		LOG.info("le service getNombreEmployeJPQL a commencé");
 		return employeRepository.countemp();
 	}
 	
 	public List<String> getAllEmployeNamesJPQL() {
+		LOG.info("le service getAllEmployeNamesJPQL a commencé");
 		return employeRepository.employeNames();
 
 	}
 	
 	public List<Employe> getAllEmployeByEntreprise(Entreprise entreprise) {
+		LOG.info("le service getAllEmployeByEntreprise a commencé");
 		return employeRepository.getAllEmployeByEntreprisec(entreprise);
 	}
 
 	public void mettreAjourEmailByEmployeIdJPQL(String email, int employeId) {
+		LOG.info("le service mettreAjourEmailByEmployeIdJPQL a commencé");
 		employeRepository.mettreAjourEmailByEmployeIdJPQL(email, employeId);
 
 	}
@@ -244,23 +252,28 @@ public class EmployeServiceImpl implements IEmployeService {
 	}
 	
 	public float getSalaireByEmployeIdJPQL(int employeId) {
+		LOG.info("le service getSalaireByEmployeIdJPQL a commencé");
 		return employeRepository.getSalaireByEmployeIdJPQL(employeId);
 	}
 
 	public Double getSalaireMoyenByDepartementId(int departementId) {
+		LOG.info("le service getSalaireMoyenByDepartementId a commencé");
 		return employeRepository.getSalaireMoyenByDepartementId(departementId);
 	}
 	
 	public List<Timesheet> getTimesheetsByMissionAndDate(Employe employe, Mission mission, Date dateDebut,
 			Date dateFin) {
+		LOG.info("le service getTimesheetsByMissionAndDate a commencé");
 		return timesheetRepository.getTimesheetsByMissionAndDate(employe, mission, dateDebut, dateFin);
 	}
 
 	public List<Employe> getAllEmployes() {
+		LOG.info("le service getAllEmployes a commencé");
 				return (List<Employe>) employeRepository.findAll();
 	}
 	public Employe getEmployerById(int id)
 	{
+		LOG.info("le service getEmployerById a commencé");
 		return employeRepository.findById(id).orElse(null);
 	}
 

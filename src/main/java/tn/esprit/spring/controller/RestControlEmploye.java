@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import tn.esprit.spring.dto.ContratDTO;
+import tn.esprit.spring.dto.EmployeDTO;
 import tn.esprit.spring.entities.Contrat;
 import tn.esprit.spring.entities.Employe;
 
@@ -34,10 +36,14 @@ public class RestControlEmploye {
 	// http://localhost:8081/SpringMVC/servlet/ajouterEmployer
 	@PostMapping("/ajouterEmployer")
 	@ResponseBody
-	public Employe ajouterEmploye(@RequestBody Employe employe)
+	public Employe ajouterEmploye(@RequestBody EmployeDTO employe)
+	
 	{
-		iemployeservice.ajouterEmploye(employe);
-		return employe;
+		Employe e=new Employe();
+		e.setNom(employe.getNom());
+		e.setPrenom(employe.getPrenom());
+		iemployeservice.ajouterEmploye(e);
+		return e;
 	}
 	
 	// Modifier email : http://localhost:8081/SpringMVC/servlet/modifyEmail/1/newemail
@@ -65,9 +71,13 @@ public class RestControlEmploye {
 
 	@PostMapping("/ajouterContrat")
 	@ResponseBody
-	public int ajouterContrat(@RequestBody Contrat contrat) {
-		iemployeservice.ajouterContrat(contrat);
-		return contrat.getReference();
+	public int ajouterContrat(@RequestBody ContratDTO contrat) {
+		Contrat c=new Contrat();
+		c.setDateDebut(contrat.getDateDebut());
+		c.setSalaire(contrat.getSalaire());
+		
+		iemployeservice.ajouterContrat(c);
+		return c.getReference();
 	}
 	
 	// http://localhost:8081/SpringMVC/servlet/affecterContratAEmploye/6/1
