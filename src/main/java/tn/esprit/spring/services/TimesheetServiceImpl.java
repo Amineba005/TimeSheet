@@ -3,12 +3,11 @@ package tn.esprit.spring.services;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import tn.esprit.spring.entities.Departement;
 import tn.esprit.spring.entities.Employe;
 import tn.esprit.spring.entities.Mission;
@@ -43,7 +42,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
 			result = mission.getId();
 		}
 		catch (Exception e) {
-			l.error("Erreur : " + e);
+			l.error("Mission not added : " + e);
 		}
 		l.info("Out ajouterMission : " + result);
 		return mission.getId();
@@ -53,14 +52,21 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		boolean result = false;
 		try {
 			l.info("In affecterMissionADepartement : depId[" + depId + "] / missionId[" + missionId + "]");
-			Mission mission = missionRepository.findById(missionId).get();
-			Departement dep = deptRepoistory.findById(depId).get();
+			Optional<Mission> missionO = missionRepository.findById(missionId);
+			if(missionO.isPresent()){
+				Mission mission = missionO.get();
+			
+			Optional<Departement> depO = deptRepoistory.findById(depId);
+			if(depO.isPresent()){
+				Departement dep = depO.get();
 			mission.setDepartement(dep);
 			missionRepository.save(mission);
 			result = true;
+			}
+			}
 		}
 		catch (Exception e) {
-			l.error("Erreur : " + e);
+			l.error("Mission not affected : " + e);
 		}
 		l.info("Out affecterMissionADepartement : " + result + "\n");
 		return result;
@@ -84,7 +90,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		timesheetRepository.save(timesheet);
 		result = true;
 		} catch (Exception e) {
-			l.error("Erreur : " + e);
+			l.error("Timesheet not added : " + e);
 		}
 		l.info("Out ajouterTimesheet : " + result);
 		return result;
@@ -92,12 +98,19 @@ public class TimesheetServiceImpl implements ITimesheetService {
 
 	
 	public void validerTimesheet(int missionId, int employeId, Date dateDebut, Date dateFin, int validateurId) {
-		System.out.println("In valider Timesheet");
-		Employe validateur = employeRepository.findById(validateurId).get();
-		Mission mission = missionRepository.findById(missionId).get();
+		l.info("In valider Timesheet");
+		Optional<Employe> validateurO = employeRepository.findById(validateurId);
+		if(validateurO.isPresent()){
+			Employe validateur = validateurO.get();
+			
+			Optional<Mission> missionO = missionRepository.findById(missionId);
+			if (missionO.isPresent()){
+				Mission mission = missionO.get();
+			
+		
 		//verifier s'il est un chef de departement (interet des enum)
 		if(!validateur.getRole().equals(Role.CHEF_DEPARTEMENT)){
-			System.out.println("l'employe doit etre chef de departement pour valider une feuille de temps !");
+			l.info("l'employe doit etre chef de departement pour valider une feuille de temps !");
 			return;
 		}
 		//verifier s'il est le chef de departement de la mission en question
@@ -109,7 +122,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
 			}
 		}
 		if(!chefDeLaMission){
-			System.out.println("l'employe doit etre chef de departement de la mission en question");
+			l.info("l'employe doit etre chef de departement de la mission en question");
 			return;
 		}
 //
@@ -119,8 +132,9 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		
 		//Comment Lire une date de la base de données
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		System.out.println("dateDebut : " + dateFormat.format(timesheet.getTimesheetPK().getDateDebut()));
+		l.info("dateDebut : " + dateFormat.format(timesheet.getTimesheetPK().getDateDebut()));
 		
+	}}
 	}
 
 	
@@ -128,7 +142,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		try {
 			l.info("In findAllMissionByEmployeJPQL : employeId[" + employeId + "]");
 		} catch (Exception e) {
-			l.error("Erreur : " + e);
+			l.error("Mission not found : " + e);
 		}
 		for (Mission mission : timesheetRepository.findAllMissionByEmployeJPQL(employeId) ){
 			l.info("Out getAllDepartementsNamesByEntreprise : " + mission + "\n");
